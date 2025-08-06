@@ -701,40 +701,42 @@
     }
 
     function renderServers() {
-      if (filteredServers.length === 0) {
-        serversContainer.innerHTML = `
-          <div class="empty-state">
-            <i class="fas fa-server"></i>
-            <h3>No servers found</h3>
-            <p>Try adjusting your search or add your own server!</p>
-          </div>
-        `;
-        return;
-      }
+  if (filteredServers.length === 0) {
+    serversContainer.innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-server"></i>
+        <h3>No servers found</h3>
+        <p>Try adjusting your search or add your own server!</p>
+      </div>
+    `;
+    return;
+  }
 
-      serversContainer.innerHTML = '';
-      filteredServers.forEach(server => {
-        const serverElement = document.createElement('div');
-        serverElement.className = 'server-card';
-        serverElement.innerHTML = `
-          <div class="server-banner" style="background-image: url('${server.banner || ''}')">
-            <div class="server-logo" style="background-image: url('${server.logo || ''}')"></div>
-          </div>
-          <div class="server-content">
-            <div class="server-title">
-              <span>${server.name}</span>
-              <span class="server-members"><i class="fas fa-user"></i> ${server.members?.toLocaleString()}</span>
-            </div>
-            <p class="server-description">${server.description}</p>
-            <div class="server-tags">
-              ${(server.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
-            </div>
-            <a href="${server.inviteLink}" target="_blank" class="join-btn">Join Server <i class="fab fa-discord"></i></a>
-          </div>
-        `;
-        serversContainer.appendChild(serverElement);
-      });
-    }
+  serversContainer.innerHTML = '';
+
+  filteredServers.forEach(server => {
+    const serverElement = document.createElement('div');
+    serverElement.className = 'server-card';
+    serverElement.innerHTML = `
+      <div class="server-banner" style="background-image: url('${server.banner || ''}')">
+        <div class="server-logo" style="background-image: url('${server.logo || ''}')"></div>
+      </div>
+      <div class="server-content">
+        <div class="server-title">
+          <span>${server.name}</span>
+          <span class="server-members"><i class="fas fa-user"></i> ${server.members.toLocaleString()}</span>
+        </div>
+        <p class="server-description">${server.description}</p>
+        <div class="server-tags">
+          ${server.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+        </div>
+        <a href="${server.inviteLink}" target="_blank" class="join-btn">Join Server <i class="fab fa-discord"></i></a>
+        <a href="server.html?id=${server.id}" class="join-btn" style="margin-top: 0.5rem; background-color: var(--accent);">View Page <i class="fas fa-external-link-alt"></i></a>
+      </div>
+    `;
+    serversContainer.appendChild(serverElement);
+  });
+}
 
     function filterServers() {
       const searchTerm = searchInput.value.toLowerCase();
