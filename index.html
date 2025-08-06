@@ -630,7 +630,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
-  const supabase = supabase.createClient('https://dsosdqwmeydiyrbzcojz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzb3NkcXdtZXlkaXlyYnpjb2p6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyMTY1NDUsImV4cCI6MjA2Nzc5MjU0NX0.9om86eGS68cqtBexnK5f6RKJF1_eeXEnPtSKu1BTOek');
+  const client = supabase.createClient('https://dsosdqwmeydiyrbzcojz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzb3NkcXdtZXlkaXlyYnpjb2p6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyMTY1NDUsImV4cCI6MjA2Nzc5MjU0NX0.9om86eGS68cqtBexnK5f6RKJF1_eeXEnPtSKu1BTOek');
 
   document.addEventListener('DOMContentLoaded', function () {
     const browseBtn = document.getElementById('browseBtn');
@@ -754,7 +754,7 @@
     }
 
     async function fetchServers() {
-      const { data, error } = await supabase.from('servers').select('*').order('id', { ascending: false });
+      const { data, error } = await client.from('servers').select('*').order('id', { ascending: false });
       if (error) {
         console.error('Error loading servers:', error.message);
         return;
@@ -767,7 +767,7 @@
     async function handleFormSubmit(e) {
       e.preventDefault();
 
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await client.auth.getSession();
       const user = session?.user;
 
       if (!user) {
@@ -788,7 +788,7 @@
         return;
       }
 
-      const { data, error } = await supabase.from('servers').insert([{
+      const { data, error } = await client.from('servers').insert([{
         name,
         description,
         inviteLink,
@@ -842,7 +842,7 @@
     document.querySelector('header').appendChild(userInfo);
 
     loginBtn.addEventListener('click', async () => {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { error } = await client.auth.signInWithOAuth({
         provider: 'discord',
         options: {
           redirectTo: window.location.href
@@ -852,14 +852,14 @@
     });
 
     async function checkLoginStatus() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await client.auth.getSession();
       const user = session?.user;
       if (user) {
         userInfo.innerText = `Logged in as ${user.user_metadata.full_name || user.email}`;
       }
     }
 
-    supabase.auth.onAuthStateChange(async (_, session) => {
+    client.auth.onAuthStateChange(async (_, session) => {
       const user = session?.user;
       if (user) {
         userInfo.innerText = `Logged in as ${user.user_metadata.full_name || user.email}`;
