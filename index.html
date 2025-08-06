@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Server Hub</title>
+    <title>HellCube</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -538,7 +538,7 @@
         <i class="fab fa-discord floating-discord"></i>
         <i class="fab fa-discord floating-discord"></i>
         <i class="fab fa-discord floating-discord"></i>
-        <h1>Discord Server Hub</h1>
+        <h1>HelCube Promotional Hub</h1>
         <p>Find and promote the best Discord communities</p>
     </header>
 
@@ -628,290 +628,247 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sample data for demonstration
-            const sampleServers = [
-                {
-                    id: 1,
-                    name: "Gaming Universe",
-                    description: "The ultimate gaming community for all platforms. Join for tournaments, game nights, and more!",
-                    inviteLink: "https://discord.gg/gaming",
-                    members: 12500,
-                    banner: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                    logo: "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
-                    tags: ["gaming", "esports", "community"]
-                },
-                {
-                    id: 2,
-                    name: "Artists Haven",
-                    description: "A place for digital and traditional artists to share their work, get feedback, and collaborate.",
-                    inviteLink: "https://discord.gg/art",
-                    members: 8500,
-                    banner: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1466&q=80",
-                    logo: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1445&q=80",
-                    tags: ["art", "digital", "creative"]
-                },
-                {
-                    id: 3,
-                    name: "Music Lovers",
-                    description: "For music enthusiasts of all genres. Share songs, discover new artists, and discuss music theory.",
-                    inviteLink: "https://discord.gg/music",
-                    members: 7200,
-                    banner: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                    logo: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80",
-                    tags: ["music", "community"]
-                },
-                {
-                    id: 4,
-                    name: "Tech Innovators",
-                    description: "A community for developers, designers, and tech enthusiasts to share knowledge and collaborate.",
-                    inviteLink: "https://discord.gg/tech",
-                    members: 15000,
-                    banner: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                    logo: "https://images.unsplash.com/photo-1619410283995-43d9134e7656?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                    tags: ["technology", "programming", "development"]
-                },
-                {
-                    id: 5,
-                    name: "Study Group",
-                    description: "Find study partners, share resources, and stay motivated with our productivity community.",
-                    inviteLink: "https://discord.gg/study",
-                    members: 6200,
-                    banner: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                    logo: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1422&q=80",
-                    tags: ["education", "learning", "productivity"]
-                },
-                {
-                    id: 6,
-                    name: "Anime World",
-                    description: "Discuss your favorite anime, manga, and Japanese culture with fellow enthusiasts.",
-                    inviteLink: "https://discord.gg/anime",
-                    members: 9800,
-                    banner: "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                    logo: "https://images.unsplash.com/photo-1607602132700-068b0a8a5e3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-                    tags: ["anime", "entertainment", "community"]
-                }
-            ];
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const supabase = supabase.createClient('https://dsosdqwmeydiyrbzcojz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzb3NkcXdtZXlkaXlyYnpjb2p6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyMTY1NDUsImV4cCI6MjA2Nzc5MjU0NX0.9om86eGS68cqtBexnK5f6RKJF1_eeXEnPtSKu1BTOek');
 
-            // Available tags
-            const availableTags = [
-                "gaming", "esports", "art", "digital", "creative", "music", 
-                "technology", "programming", "development", "education", 
-                "learning", "productivity", "anime", "entertainment", 
-                "community", "social", "business", "finance"
-            ];
+  document.addEventListener('DOMContentLoaded', function () {
+    const browseBtn = document.getElementById('browseBtn');
+    const addBtn = document.getElementById('addBtn');
+    const browseView = document.getElementById('browseView');
+    const addView = document.getElementById('addView');
+    const serversContainer = document.getElementById('serversContainer');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const serverForm = document.getElementById('serverForm');
+    const tagSelector = document.getElementById('tagSelector');
 
-            // DOM elements
-            const browseBtn = document.getElementById('browseBtn');
-            const addBtn = document.getElementById('addBtn');
-            const browseView = document.getElementById('browseView');
-            const addView = document.getElementById('addView');
-            const serversContainer = document.getElementById('serversContainer');
-            const searchInput = document.getElementById('searchInput');
-            const categoryFilter = document.getElementById('categoryFilter');
-            const serverForm = document.getElementById('serverForm');
-            const tagSelector = document.getElementById('tagSelector');
+    let servers = [];
+    let filteredServers = [];
 
-            // Current servers data
-            let servers = [...sampleServers];
-            let filteredServers = [...servers];
+    const availableTags = [
+      "gaming", "esports", "art", "digital", "creative", "music",
+      "technology", "programming", "development", "education",
+      "learning", "productivity", "anime", "entertainment",
+      "community", "social", "business", "finance"
+    ];
 
-            // Initialize the app
-            function init() {
-                renderServers();
-                setupTagSelector();
-                setupEventListeners();
-            }
+    async function init() {
+      setupTagSelector();
+      setupEventListeners();
+      await fetchServers();
+      await checkLoginStatus();
+    }
 
-            // Set up event listeners
-            function setupEventListeners() {
-                // Toggle between browse and add views
-                browseBtn.addEventListener('click', () => {
-                    browseBtn.classList.add('active');
-                    addBtn.classList.remove('active');
-                    browseView.style.display = 'block';
-                    addView.style.display = 'none';
-                });
+    function setupEventListeners() {
+      browseBtn.addEventListener('click', () => {
+        browseBtn.classList.add('active');
+        addBtn.classList.remove('active');
+        browseView.style.display = 'block';
+        addView.style.display = 'none';
+      });
 
-                addBtn.addEventListener('click', () => {
-                    addBtn.classList.add('active');
-                    browseBtn.classList.remove('active');
-                    browseView.style.display = 'none';
-                    addView.style.display = 'block';
-                });
+      addBtn.addEventListener('click', () => {
+        addBtn.classList.add('active');
+        browseBtn.classList.remove('active');
+        browseView.style.display = 'none';
+        addView.style.display = 'block';
+      });
 
-                // Search and filter functionality
-                searchInput.addEventListener('input', filterServers);
-                categoryFilter.addEventListener('change', filterServers);
+      searchInput.addEventListener('input', filterServers);
+      categoryFilter.addEventListener('change', filterServers);
+      serverForm.addEventListener('submit', handleFormSubmit);
+    }
 
-                // Form submission
-                serverForm.addEventListener('submit', handleFormSubmit);
-            }
+    function setupTagSelector() {
+      tagSelector.innerHTML = '';
+      availableTags.forEach(tag => {
+        const tagElement = document.createElement('div');
+        tagElement.className = 'tag-option';
+        tagElement.textContent = tag;
+        tagElement.dataset.tag = tag;
 
-            // Render servers to the DOM
-            function renderServers() {
-                if (filteredServers.length === 0) {
-                    serversContainer.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-server"></i>
-                            <h3>No servers found</h3>
-                            <p>Try adjusting your search or add your own server!</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                serversContainer.innerHTML = '';
-                
-                filteredServers.forEach(server => {
-                    const serverElement = document.createElement('div');
-                    serverElement.className = 'server-card';
-                    serverElement.innerHTML = `
-                        <div class="server-banner" style="background-image: url('${server.banner || 'https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80'}')">
-                            <div class="server-logo" style="background-image: url('${server.logo || 'https://cdn-icons-png.flaticon.com/512/5968/5968756.png'}')"></div>
-                        </div>
-                        <div class="server-content">
-                            <div class="server-title">
-                                <span>${server.name}</span>
-                                <span class="server-members"><i class="fas fa-user"></i> ${server.members.toLocaleString()}</span>
-                            </div>
-                            <p class="server-description">${server.description}</p>
-                            <div class="server-tags">
-                                ${server.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                            </div>
-                            <a href="${server.inviteLink}" target="_blank" class="join-btn">Join Server <i class="fab fa-discord"></i></a>
-                        </div>
-                    `;
-                    serversContainer.appendChild(serverElement);
-                });
-            }
-
-            // Filter servers based on search and category
-            function filterServers() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const category = categoryFilter.value.toLowerCase();
-
-                filteredServers = servers.filter(server => {
-                    const matchesSearch = 
-                        server.name.toLowerCase().includes(searchTerm) || 
-                        server.description.toLowerCase().includes(searchTerm) ||
-                        server.tags.some(tag => tag.toLowerCase().includes(searchTerm));
-                    
-                    const matchesCategory = 
-                        !category || 
-                        server.tags.map(tag => tag.toLowerCase()).includes(category);
-                    
-                    return matchesSearch && matchesCategory;
-                });
-
-                renderServers();
-            }
-
-            // Set up tag selector in the form
-            function setupTagSelector() {
-                tagSelector.innerHTML = '';
-                
-                availableTags.forEach(tag => {
-                    const tagElement = document.createElement('div');
-                    tagElement.className = 'tag-option';
-                    tagElement.textContent = tag;
-                    tagElement.dataset.tag = tag;
-                    
-                    tagElement.addEventListener('click', function() {
-                        this.classList.toggle('selected');
-                        
-                        // Limit to 5 selected tags
-                        const selectedTags = document.querySelectorAll('.tag-option.selected');
-                        if (selectedTags.length > 5) {
-                            this.classList.remove('selected');
-                        }
-                    });
-                    
-                    tagSelector.appendChild(tagElement);
-                });
-            }
-
-            // Handle form submission
-            function handleFormSubmit(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const name = document.getElementById('serverName').value;
-                const description = document.getElementById('serverDescription').value;
-                const inviteLink = document.getElementById('inviteLink').value;
-                const memberCount = parseInt(document.getElementById('memberCount').value);
-                const bannerUrl = document.getElementById('bannerUrl').value;
-                const logoUrl = document.getElementById('logoUrl').value;
-                
-                // Get selected tags
-                const selectedTags = [];
-                document.querySelectorAll('.tag-option.selected').forEach(tag => {
-                    selectedTags.push(tag.dataset.tag);
-                });
-                
-                // Validate
-                if (selectedTags.length === 0) {
-                    alert('Please select at least one tag');
-                    return;
-                }
-                
-                // Create new server object
-                const newServer = {
-                    id: servers.length + 1,
-                    name,
-                    description,
-                    inviteLink,
-                    members: memberCount,
-                    banner: bannerUrl || null,
-                    logo: logoUrl || null,
-                    tags: selectedTags
-                };
-                
-                // Add to servers array
-                servers.unshift(newServer);
-                filteredServers.unshift(newServer);
-                
-                // Reset form
-                serverForm.reset();
-                document.querySelectorAll('.tag-option.selected').forEach(tag => {
-                    tag.classList.remove('selected');
-                });
-                
-                // Switch to browse view and show new server
-                browseBtn.click();
-                renderServers();
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                // Show success animation
-                const successMessage = document.createElement('div');
-                successMessage.textContent = 'Server added successfully!';
-                successMessage.style.position = 'fixed';
-                successMessage.style.bottom = '20px';
-                successMessage.style.left = '50%';
-                successMessage.style.transform = 'translateX(-50%)';
-                successMessage.style.backgroundColor = 'var(--accent)';
-                successMessage.style.color = 'var(--background)';
-                successMessage.style.padding = '10px 20px';
-                successMessage.style.borderRadius = '5px';
-                successMessage.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
-                successMessage.style.zIndex = '1000';
-                successMessage.style.animation = 'fadeIn 0.3s ease-out';
-                document.body.appendChild(successMessage);
-                
-                setTimeout(() => {
-                    successMessage.style.animation = 'fadeIn 0.3s ease-out reverse';
-                    setTimeout(() => {
-                        document.body.removeChild(successMessage);
-                    }, 300);
-                }, 3000);
-            }
-
-            // Initialize the app
-            init();
+        tagElement.addEventListener('click', function () {
+          this.classList.toggle('selected');
+          const selectedTags = document.querySelectorAll('.tag-option.selected');
+          if (selectedTags.length > 5) {
+            this.classList.remove('selected');
+          }
         });
-    </script>
+
+        tagSelector.appendChild(tagElement);
+      });
+    }
+
+    function renderServers() {
+      if (filteredServers.length === 0) {
+        serversContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-server"></i>
+            <h3>No servers found</h3>
+            <p>Try adjusting your search or add your own server!</p>
+          </div>
+        `;
+        return;
+      }
+
+      serversContainer.innerHTML = '';
+      filteredServers.forEach(server => {
+        const serverElement = document.createElement('div');
+        serverElement.className = 'server-card';
+        serverElement.innerHTML = `
+          <div class="server-banner" style="background-image: url('${server.banner || ''}')">
+            <div class="server-logo" style="background-image: url('${server.logo || ''}')"></div>
+          </div>
+          <div class="server-content">
+            <div class="server-title">
+              <span>${server.name}</span>
+              <span class="server-members"><i class="fas fa-user"></i> ${server.members?.toLocaleString()}</span>
+            </div>
+            <p class="server-description">${server.description}</p>
+            <div class="server-tags">
+              ${(server.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <a href="${server.inviteLink}" target="_blank" class="join-btn">Join Server <i class="fab fa-discord"></i></a>
+          </div>
+        `;
+        serversContainer.appendChild(serverElement);
+      });
+    }
+
+    function filterServers() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const category = categoryFilter.value.toLowerCase();
+
+      filteredServers = servers.filter(server => {
+        const matchesSearch =
+          server.name.toLowerCase().includes(searchTerm) ||
+          server.description.toLowerCase().includes(searchTerm) ||
+          (server.tags || []).some(tag => tag.toLowerCase().includes(searchTerm));
+
+        const matchesCategory = !category || (server.tags || []).includes(category);
+        return matchesSearch && matchesCategory;
+      });
+
+      renderServers();
+    }
+
+    async function fetchServers() {
+      const { data, error } = await supabase.from('servers').select('*').order('id', { ascending: false });
+      if (error) {
+        console.error('Error loading servers:', error.message);
+        return;
+      }
+      servers = data || [];
+      filteredServers = [...servers];
+      renderServers();
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const { data: { session } } = await supabase.auth.getSession();
+      const user = session?.user;
+
+      if (!user) {
+        alert('Please log in with Discord to submit a server.');
+        return;
+      }
+
+      const name = document.getElementById('serverName').value;
+      const description = document.getElementById('serverDescription').value;
+      const inviteLink = document.getElementById('inviteLink').value;
+      const memberCount = parseInt(document.getElementById('memberCount').value);
+      const bannerUrl = document.getElementById('bannerUrl').value;
+      const logoUrl = document.getElementById('logoUrl').value;
+      const selectedTags = Array.from(document.querySelectorAll('.tag-option.selected')).map(tag => tag.dataset.tag);
+
+      if (selectedTags.length === 0) {
+        alert('Please select at least one tag');
+        return;
+      }
+
+      const { data, error } = await supabase.from('servers').insert([{
+        name,
+        description,
+        inviteLink,
+        members: memberCount,
+        banner: bannerUrl,
+        logo: logoUrl,
+        tags: selectedTags,
+        user_id: user.id
+      }]);
+
+      if (error) {
+        alert('Failed to submit server: ' + error.message);
+        return;
+      }
+
+      serverForm.reset();
+      document.querySelectorAll('.tag-option.selected').forEach(tag => tag.classList.remove('selected'));
+      browseBtn.click();
+      await fetchServers();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      const successMessage = document.createElement('div');
+      successMessage.textContent = 'Server added successfully!';
+      successMessage.style.position = 'fixed';
+      successMessage.style.bottom = '20px';
+      successMessage.style.left = '50%';
+      successMessage.style.transform = 'translateX(-50%)';
+      successMessage.style.backgroundColor = 'var(--accent)';
+      successMessage.style.color = 'var(--background)';
+      successMessage.style.padding = '10px 20px';
+      successMessage.style.borderRadius = '5px';
+      successMessage.style.zIndex = '1000';
+      document.body.appendChild(successMessage);
+
+      setTimeout(() => {
+        document.body.removeChild(successMessage);
+      }, 3000);
+    }
+
+    // AUTH: Discord login + display
+    const loginBtn = document.createElement('button');
+    loginBtn.id = 'login-btn';
+    loginBtn.innerText = 'Login with Discord';
+    loginBtn.style.cssText = 'padding: 10px 20px; background-color: #5865F2; color: white; border: none; border-radius: 5px; cursor: pointer;';
+    document.querySelector('header').appendChild(loginBtn);
+
+    const userInfo = document.createElement('span');
+    userInfo.id = 'user-info';
+    userInfo.style.marginLeft = '1rem';
+    userInfo.style.color = '#B9BBBE';
+    document.querySelector('header').appendChild(userInfo);
+
+    loginBtn.addEventListener('click', async () => {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'discord',
+        options: {
+          redirectTo: window.location.href
+        }
+      });
+      if (error) console.error('Login Error:', error.message);
+    });
+
+    async function checkLoginStatus() {
+      const { data: { session } } = await supabase.auth.getSession();
+      const user = session?.user;
+      if (user) {
+        userInfo.innerText = `Logged in as ${user.user_metadata.full_name || user.email}`;
+      }
+    }
+
+    supabase.auth.onAuthStateChange(async (_, session) => {
+      const user = session?.user;
+      if (user) {
+        userInfo.innerText = `Logged in as ${user.user_metadata.full_name || user.email}`;
+      }
+    });
+
+    init();
+  });
+</script>
+
 </body>
 </html>
