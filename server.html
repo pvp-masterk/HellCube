@@ -316,8 +316,8 @@ let allServers = [];
 let allUsers = [];
 
 async function fetchMentionsData() {
-  const { data: servers } = await supabase.from("servers").select("id, name");
-  const { data: users } = await supabase.auth.admin.listUsers(); // requires service role key if using outside dashboard
+  const { data: servers } = await client.from("servers").select("id, name");
+  const { data: users } = await client.auth.admin.listUsers(); // requires service role key if using outside dashboard
   allServers = servers || [];
   allUsers = (users?.users || []).map(u => ({
     id: u.id,
