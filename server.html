@@ -221,6 +221,16 @@
     const urlParams = new URLSearchParams(window.location.search);
     const serverId = urlParams.get("id");
 
+    function parseMentions(text) {
+  return text.replace(/@([\w\s#-]+)/g, (match, name) => {
+    const server = allServers.find(s => s.name.toLowerCase() === name.toLowerCase());
+    if (server) {
+      return `<a class="mention" href="server.html?id=${server.id}">@${name}</a>`;
+    }
+    return `<span class="mention">@${name}</span>`;
+  });
+}
+
     async function loadServer() {
       const { data, error } = await client.from("servers").select("*").eq("id", serverId).single();
       if (error || !data) {
@@ -295,19 +305,10 @@
           <div>${comment.content.replace(/@(\w+)/g, '<span style="color: var(--primary)">@$1</span>')}</div>
           <div style="margin-top:5px"><a href="#" onclick="deleteComment('${comment.id}')" style="font-size:0.8rem;color:var(--danger)">Delete</a></div>
         `;
+        parseMentions()
         commentList.appendChild(el);
       });
     }
-
-    function parseMentions(text) {
-  return text.replace(/@([\w\s#-]+)/g, (match, name) => {
-    const server = allServers.find(s => s.name.toLowerCase() === name.toLowerCase());
-    if (server) {
-      return `<a class="mention" href="server.html?id=${server.id}">@${name}</a>`;
-    }
-    return `<span class="mention">@${name}</span>`;
-  });
-}
 
     async function deleteComment(commentId) {
       const { data: { session } } = await client.auth.getSession();
