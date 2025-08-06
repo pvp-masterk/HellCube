@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Server Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #5865F2;
+            --primary-dark: #4752C4;
+            --background: #36393F;
+            --background-light: #40444B;
+            --background-lighter: #4F545C;
+            --text: #F6F6F6;
+            --text-muted: #B9BBBE;
+            --accent: #57F287;
+            --accent-dark: #3BA55C;
+            --danger: #ED4245;
+            --warning: #FAA61A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: gradientBG 15s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .floating-discord {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-discord:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-discord:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+
+        .floating-discord:nth-child(3) {
+            top: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .floating-discord:nth-child(4) {
+            top: 70%;
+            left: 20%;
+            animation-delay: 3s;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Search and Filter */
+        .search-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            border-radius: 50px;
+            border: none;
+            background-color: var(--background-light);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .tag-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .tag-filter select {
+            padding: 0.8rem 1rem;
+            border-radius: 50px;
+            border: none;
+            background-color: var(--background-light);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tag-filter select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        /* Server Cards */
+        .servers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .server-card {
+            background-color: var(--background-light);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-out;
+            transform-origin: center;
+        }
+
+        .server-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .server-banner {
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .server-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+        }
+
+        .server-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid var(--background);
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            bottom: -40px;
+            left: 20px;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .server-card:hover .server-logo {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .server-content {
+            padding: 2rem 1.5rem 1.5rem;
+            margin-top: 40px;
+        }
+
+        .server-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .server-members {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .server-members i {
+            margin-right: 0.3rem;
+            color: var(--accent);
+        }
+
+        .server-description {
+            margin: 1rem 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .server-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background-color: var(--background-lighter);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--text);
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .join-btn {
+            display: block;
+            width: 100%;
+            padding: 0.7rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .join-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(88, 101, 242, 0.3);
+        }
+
+        .join-btn i {
+            margin-left: 0.5rem;
+        }
+
+        /* Add Server Form */
+        .add-server-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: var(--background-light);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .add-server-container h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            border: 1px solid var(--background-lighter);
+            background-color: var(--background);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.3);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .tag-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag-option {
+            padding: 0.5rem 1rem;
+            background-color: var(--background);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            user-select: none;
+        }
+
+        .tag-option:hover {
+            background-color: var(--background-lighter);
+        }
+
+        .tag-option.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .submit-btn {
+            background-color: var(--accent);
+            color: var(--background);
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(87, 242, 135, 0.3);
+        }
+
+        /* Toggle between browse and add */
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background-color: var(--background-light);
+            border-radius: 50px;
+            padding: 0.3rem;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: none;
+            background: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .servers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        /* Loading animation */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .loader-circle {
+            width: 15px;
+            height: 15px;
+            margin: 0 5px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loader-circle:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .loader-circle:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loader-circle:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fab fa-discord floating-discord"></i>
+        <i class="fab fa-discord floating-discord"></i>
+        <i class="fab fa-discord floating-discord"></i>
+        <i class="fab fa-discord floating-discord"></i>
+        <h1>Discord Server Hub</h1>
+        <p>Find and promote the best Discord communities</p>
+    </header>
+
+    <div class="container">
+        <div class="view-toggle">
+            <button class="toggle-btn active" id="browseBtn">Browse Servers</button>
+            <button class="toggle-btn" id="addBtn">Add Your Server</button>
+        </div>
+
+        <div id="browseView">
+            <div class="search-filter">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search servers...">
+                </div>
+                <div class="tag-filter">
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="gaming">Gaming</option>
+                        <option value="art">Art</option>
+                        <option value="music">Music</option>
+                        <option value="education">Education</option>
+                        <option value="technology">Technology</option>
+                        <option value="social">Social</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="business">Business</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="serversContainer">
+                <!-- Servers will be loaded here -->
+                <div class="loader">
+                    <div class="loader-circle"></div>
+                    <div class="loader-circle"></div>
+                    <div class="loader-circle"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="addView" style="display: none;">
+            <div class="add-server-container">
+                <h2>Promote Your Server</h2>
+                <form id="serverForm">
+                    <div class="form-group">
+                        <label for="serverName">Server Name</label>
+                        <input type="text" id="serverName" required placeholder="Enter your server name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serverDescription">Description</label>
+                        <textarea id="serverDescription" required placeholder="Tell us about your server"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inviteLink">Invite Link</label>
+                            <input type="url" id="inviteLink" required placeholder="https://discord.gg/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="memberCount">Member Count</label>
+                            <input type="number" id="memberCount" required placeholder="Approximate number of members">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bannerUrl">Banner Image URL</label>
+                            <input type="url" id="bannerUrl" placeholder="https://example.com/banner.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label for="logoUrl">Logo Image URL</label>
+                            <input type="url" id="logoUrl" placeholder="https://example.com/logo.jpg">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tags (Select up to 5)</label>
+                        <div class="tag-selector" id="tagSelector">
+                            <!-- Tags will be added here by JavaScript -->
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Publish Server <i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample data for demonstration
+            const sampleServers = [
+                {
+                    id: 1,
+                    name: "Gaming Universe",
+                    description: "The ultimate gaming community for all platforms. Join for tournaments, game nights, and more!",
+                    inviteLink: "https://discord.gg/gaming",
+                    members: 12500,
+                    banner: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    logo: "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
+                    tags: ["gaming", "esports", "community"]
+                },
+                {
+                    id: 2,
+                    name: "Artists Haven",
+                    description: "A place for digital and traditional artists to share their work, get feedback, and collaborate.",
+                    inviteLink: "https://discord.gg/art",
+                    members: 8500,
+                    banner: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1466&q=80",
+                    logo: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1445&q=80",
+                    tags: ["art", "digital", "creative"]
+                },
+                {
+                    id: 3,
+                    name: "Music Lovers",
+                    description: "For music enthusiasts of all genres. Share songs, discover new artists, and discuss music theory.",
+                    inviteLink: "https://discord.gg/music",
+                    members: 7200,
+                    banner: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    logo: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80",
+                    tags: ["music", "community"]
+                },
+                {
+                    id: 4,
+                    name: "Tech Innovators",
+                    description: "A community for developers, designers, and tech enthusiasts to share knowledge and collaborate.",
+                    inviteLink: "https://discord.gg/tech",
+                    members: 15000,
+                    banner: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    logo: "https://images.unsplash.com/photo-1619410283995-43d9134e7656?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    tags: ["technology", "programming", "development"]
+                },
+                {
+                    id: 5,
+                    name: "Study Group",
+                    description: "Find study partners, share resources, and stay motivated with our productivity community.",
+                    inviteLink: "https://discord.gg/study",
+                    members: 6200,
+                    banner: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    logo: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1422&q=80",
+                    tags: ["education", "learning", "productivity"]
+                },
+                {
+                    id: 6,
+                    name: "Anime World",
+                    description: "Discuss your favorite anime, manga, and Japanese culture with fellow enthusiasts.",
+                    inviteLink: "https://discord.gg/anime",
+                    members: 9800,
+                    banner: "https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    logo: "https://images.unsplash.com/photo-1607602132700-068b0a8a5e3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    tags: ["anime", "entertainment", "community"]
+                }
+            ];
+
+            // Available tags
+            const availableTags = [
+                "gaming", "esports", "art", "digital", "creative", "music", 
+                "technology", "programming", "development", "education", 
+                "learning", "productivity", "anime", "entertainment", 
+                "community", "social", "business", "finance"
+            ];
+
+            // DOM elements
+            const browseBtn = document.getElementById('browseBtn');
+            const addBtn = document.getElementById('addBtn');
+            const browseView = document.getElementById('browseView');
+            const addView = document.getElementById('addView');
+            const serversContainer = document.getElementById('serversContainer');
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const serverForm = document.getElementById('serverForm');
+            const tagSelector = document.getElementById('tagSelector');
+
+            // Current servers data
+            let servers = [...sampleServers];
+            let filteredServers = [...servers];
+
+            // Initialize the app
+            function init() {
+                renderServers();
+                setupTagSelector();
+                setupEventListeners();
+            }
+
+            // Set up event listeners
+            function setupEventListeners() {
+                // Toggle between browse and add views
+                browseBtn.addEventListener('click', () => {
+                    browseBtn.classList.add('active');
+                    addBtn.classList.remove('active');
+                    browseView.style.display = 'block';
+                    addView.style.display = 'none';
+                });
+
+                addBtn.addEventListener('click', () => {
+                    addBtn.classList.add('active');
+                    browseBtn.classList.remove('active');
+                    browseView.style.display = 'none';
+                    addView.style.display = 'block';
+                });
+
+                // Search and filter functionality
+                searchInput.addEventListener('input', filterServers);
+                categoryFilter.addEventListener('change', filterServers);
+
+                // Form submission
+                serverForm.addEventListener('submit', handleFormSubmit);
+            }
+
+            // Render servers to the DOM
+            function renderServers() {
+                if (filteredServers.length === 0) {
+                    serversContainer.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-server"></i>
+                            <h3>No servers found</h3>
+                            <p>Try adjusting your search or add your own server!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                serversContainer.innerHTML = '';
+                
+                filteredServers.forEach(server => {
+                    const serverElement = document.createElement('div');
+                    serverElement.className = 'server-card';
+                    serverElement.innerHTML = `
+                        <div class="server-banner" style="background-image: url('${server.banner || 'https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80'}')">
+                            <div class="server-logo" style="background-image: url('${server.logo || 'https://cdn-icons-png.flaticon.com/512/5968/5968756.png'}')"></div>
+                        </div>
+                        <div class="server-content">
+                            <div class="server-title">
+                                <span>${server.name}</span>
+                                <span class="server-members"><i class="fas fa-user"></i> ${server.members.toLocaleString()}</span>
+                            </div>
+                            <p class="server-description">${server.description}</p>
+                            <div class="server-tags">
+                                ${server.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                            <a href="${server.inviteLink}" target="_blank" class="join-btn">Join Server <i class="fab fa-discord"></i></a>
+                        </div>
+                    `;
+                    serversContainer.appendChild(serverElement);
+                });
+            }
+
+            // Filter servers based on search and category
+            function filterServers() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const category = categoryFilter.value.toLowerCase();
+
+                filteredServers = servers.filter(server => {
+                    const matchesSearch = 
+                        server.name.toLowerCase().includes(searchTerm) || 
+                        server.description.toLowerCase().includes(searchTerm) ||
+                        server.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                    
+                    const matchesCategory = 
+                        !category || 
+                        server.tags.map(tag => tag.toLowerCase()).includes(category);
+                    
+                    return matchesSearch && matchesCategory;
+                });
+
+                renderServers();
+            }
+
+            // Set up tag selector in the form
+            function setupTagSelector() {
+                tagSelector.innerHTML = '';
+                
+                availableTags.forEach(tag => {
+                    const tagElement = document.createElement('div');
+                    tagElement.className = 'tag-option';
+                    tagElement.textContent = tag;
+                    tagElement.dataset.tag = tag;
+                    
+                    tagElement.addEventListener('click', function() {
+                        this.classList.toggle('selected');
+                        
+                        // Limit to 5 selected tags
+                        const selectedTags = document.querySelectorAll('.tag-option.selected');
+                        if (selectedTags.length > 5) {
+                            this.classList.remove('selected');
+                        }
+                    });
+                    
+                    tagSelector.appendChild(tagElement);
+                });
+            }
+
+            // Handle form submission
+            function handleFormSubmit(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('serverName').value;
+                const description = document.getElementById('serverDescription').value;
+                const inviteLink = document.getElementById('inviteLink').value;
+                const memberCount = parseInt(document.getElementById('memberCount').value);
+                const bannerUrl = document.getElementById('bannerUrl').value;
+                const logoUrl = document.getElementById('logoUrl').value;
+                
+                // Get selected tags
+                const selectedTags = [];
+                document.querySelectorAll('.tag-option.selected').forEach(tag => {
+                    selectedTags.push(tag.dataset.tag);
+                });
+                
+                // Validate
+                if (selectedTags.length === 0) {
+                    alert('Please select at least one tag');
+                    return;
+                }
+                
+                // Create new server object
+                const newServer = {
+                    id: servers.length + 1,
+                    name,
+                    description,
+                    inviteLink,
+                    members: memberCount,
+                    banner: bannerUrl || null,
+                    logo: logoUrl || null,
+                    tags: selectedTags
+                };
+                
+                // Add to servers array
+                servers.unshift(newServer);
+                filteredServers.unshift(newServer);
+                
+                // Reset form
+                serverForm.reset();
+                document.querySelectorAll('.tag-option.selected').forEach(tag => {
+                    tag.classList.remove('selected');
+                });
+                
+                // Switch to browse view and show new server
+                browseBtn.click();
+                renderServers();
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Show success animation
+                const successMessage = document.createElement('div');
+                successMessage.textContent = 'Server added successfully!';
+                successMessage.style.position = 'fixed';
+                successMessage.style.bottom = '20px';
+                successMessage.style.left = '50%';
+                successMessage.style.transform = 'translateX(-50%)';
+                successMessage.style.backgroundColor = 'var(--accent)';
+                successMessage.style.color = 'var(--background)';
+                successMessage.style.padding = '10px 20px';
+                successMessage.style.borderRadius = '5px';
+                successMessage.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+                successMessage.style.zIndex = '1000';
+                successMessage.style.animation = 'fadeIn 0.3s ease-out';
+                document.body.appendChild(successMessage);
+                
+                setTimeout(() => {
+                    successMessage.style.animation = 'fadeIn 0.3s ease-out reverse';
+                    setTimeout(() => {
+                        document.body.removeChild(successMessage);
+                    }, 300);
+                }, 3000);
+            }
+
+            // Initialize the app
+            init();
+        });
+    </script>
+</body>
+</html>
