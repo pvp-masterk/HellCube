@@ -845,7 +845,7 @@
       const { error } = await client.auth.signInWithOAuth({
         provider: 'discord',
         options: {
-          redirectTo: window.location.href
+          redirectTo: 'https://hellcube.vercel.app'
         }
       });
       if (error) console.error('Login Error:', error.message);
